@@ -1,0 +1,18 @@
+
+;;; sbcl sources
+(sb-ext:set-sbcl-source-location "~/workspace/lisp/sbcl/")
+
+;; asdf
+;; is this stuff actually done automatically already?
+;; (require 'asdf)
+;; (pushnew #p"/usr/share/common-lisp/systems" asdf:*central-registry* :test #'equal)
+;; (pushnew #p"/home/gaya/workspace/slime-hello-world/" asdf:*central-registry* :test #'equal)
+;; (setf *default-pathname-defaults* #p"/home/gaya/workspace/slime-hello-world/")
+;; (push #p"/home/gaya/workspace/slime-hello-world/" asdf:*central-registry*)
+
+;; (asdf:load-system :swank-hello-world)
+
+;;; swank
+;; (make-package :swank-loader)
+;; (defparameter swank-loader::*source-directory* #p"/home/gaya/workspace/slime-hello-world/")
+;; (load "/usr/share/common-lisp/source/slime/swank-loader.lisp")
