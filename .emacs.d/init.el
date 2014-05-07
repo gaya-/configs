@@ -1,5 +1,7 @@
+
 ;;; -*- mode: Emacs-Lisp -*-
 
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Appearance and Editing ;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Set this to 'dark if your background is black
@@ -92,7 +94,7 @@
 ;; (dolist (hook '(lisp-mode-hook c++-mode-hook python-mode-hook))
 ;;   (add-hook hook (lambda () flyspell-prog-mode)))
 
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Fix for the DEL key that acts like BACKSPACE on some machines
@@ -111,13 +113,13 @@
 (global-unset-key "\C-z")
 (global-unset-key "\C-x\C-z")
 
-;;; Moving through windows fastersz
+;;; Moving through windows faster
 (global-set-key (kbd "C-x <up>") 'windmove-up)
 (global-set-key (kbd "C-x <down>") 'windmove-down)
 (global-set-key (kbd "C-x <right>") 'windmove-right)
 (global-set-key (kbd "C-x <left>") 'windmove-left)
 
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Features ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Emacs should always ask for confirmation on exit
@@ -178,7 +180,7 @@
 							(package . rune-dom) (readtable . runes)
 							(Syntax . ANSI-Common-Lisp) (Base . 10) (lexical-binding . t))))
 
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;; Packages ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; All the packages should go into the PACKAGES directory.
@@ -238,7 +240,7 @@
 (define-key ctl-x-map "r\M-w" 'rm-kill-ring-save)
 (define-key global-map [S-down-mouse-1] 'rm-mouse-drag-region)
 
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;; ROS specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'rosemacs)
@@ -247,7 +249,7 @@
 (global-set-key "\C-x\C-r" ros-keymap)
 (setq ros-completion-function (quote ido-completing-read))
 
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;; Lisp specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Adjust the indentation for MAKE-INSTANCE
@@ -271,9 +273,10 @@
 		(define-key paredit-mode-map (kbd "<C-left>") 'backward-word-nomark)
 		(define-key paredit-mode-map (kbd "<C-right>") 'forward-word-nomark)))
 
-
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;; SLIME and SLIME-ROS
 
+(add-to-list 'load-path "~/workspace/lisp/slime")
 (require 'slime-autoloads)
 (add-hook 'lisp-mode-hook (lambda () (slime-mode t)))
 (add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
@@ -281,6 +284,7 @@
 (setq inferior-lisp-program "/usr/bin/sbcl --dynamic-space-size 4096")
 (setq slime-lisp-implementations nil)
 
+(setq slime-backend "swank-loader.lisp")
 (setq slime-startup-animation nil)
 (setq slime-kill-without-query-p t)
 (setq slime-repl-history-file "~/.emacs.d/.slime-history.eld")
