@@ -26,6 +26,7 @@
 
 ;;; Don't use tabs for whitespace while indenting
 (setq indent-tabs-mode nil)
+(setq-default indent-tabs-mode nil)
 
 ;;; No menu bar and toolbar on the top of emacs
 ;;; I kind of like it right now, so it will stay.
@@ -78,14 +79,14 @@
                 ("\\.vimpulse" . lisp-mode)
                 ("\\.cl$"      . lisp-mode)
                 (".sbclrc" . lisp-mode)
-								(".xcvb" . lisp-mode)
+                (".xcvb" . lisp-mode)
                 ("PKGBUILD" . sh-mode)
                 ("CMakeLists\\.txt\\'" . cmake-mode)
                 ("\\.cmake\\'" . cmake-mode)
-								("\\.yml\\'" . yaml-mode)
-								("\\.yaml\\'" . yaml-mode)
-								("\\.rnc\\'" . rnc-mode))
-							auto-mode-alist))
+                ("\\.yml\\'" . yaml-mode)
+                ("\\.yaml\\'" . yaml-mode)
+                ("\\.rnc\\'" . rnc-mode))
+              auto-mode-alist))
 
 ;; (setq rnc-enable-flymake t)
 
@@ -172,16 +173,16 @@
 (gud-tooltip-mode t)
 
 ;;; Enable autocompletion suggestions for minibuffer
-(icomplete-mode)
+(icomplete-mode 1)
 
 ;;; When opening Lisp files, don't ask if the variables are safe for this list.
 ;;; These are the variables from slime.
 (setq safe-local-variable-values
-			(quote ((TeX-PDF . t) (readtable . nisp) (readtable . :nisp)
-							(Package . NISP) (Syntax . Common-Lisp) (Package . SAX)
-							(Encoding . utf-8) (Syntax . COMMON-LISP) (Package . CL-PPCRE)
-							(package . rune-dom) (readtable . runes)
-							(Syntax . ANSI-Common-Lisp) (Base . 10) (lexical-binding . t))))
+      (quote ((TeX-PDF . t) (readtable . nisp) (readtable . :nisp)
+              (Package . NISP) (Syntax . Common-Lisp) (Package . SAX)
+              (Encoding . utf-8) (Syntax . COMMON-LISP) (Package . CL-PPCRE)
+              (package . rune-dom) (readtable . runes)
+              (Syntax . ANSI-Common-Lisp) (Base . 10) (lexical-binding . t))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; Packages ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -203,16 +204,16 @@
 (setq-default whitespace-indentation nil)
 (global-whitespace-mode 1)
 (set-face-attribute 'whitespace-line nil
-										:foreground "#880"
-										:background nil
-										:weight 'bold)
+                    :foreground "#880"
+                    :background nil
+                    :weight 'bold)
 (set-face-attribute 'whitespace-trailing nil
-										:background "#FDD")
+                    :background "#FDD")
 
 ;;; Autocomplete in the minibuffer for filenames etc.
 (require 'ido)
 (ido-mode 'both)
-(ido-everywhere t)
+(ido-everywhere 1)
 (setq ido-completion-buffer-all-completions t)
 (setq ido-auto-merge-delay-time 2)
 (setq ido-default-buffer-method (quote selected-window))
@@ -271,27 +272,45 @@
 (add-hook 'lisp-interaction-mode-hook            #'paredit-mode)
 (add-hook 'scheme-mode-hook                      #'paredit-mode)
 (eval-after-load 'paredit
-	'(progn
-		(define-key paredit-mode-map (kbd "<M-left>") 'paredit-forward-barf-sexp)
-		(define-key paredit-mode-map (kbd "<M-right>") 'paredit-forward-slurp-sexp)
-		(define-key paredit-mode-map (kbd "<C-left>") 'backward-word-nomark)
-		(define-key paredit-mode-map (kbd "<C-right>") 'forward-word-nomark)))
+  '(progn
+     (define-key paredit-mode-map (kbd "<M-left>") 'paredit-forward-barf-sexp)
+     (define-key paredit-mode-map (kbd "<M-right>") 'paredit-forward-slurp-sexp)
+     (define-key paredit-mode-map (kbd "<C-left>") 'backward-word-nomark)
+     (define-key paredit-mode-map (kbd "<C-right>") 'forward-word-nomark)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; SLIME and SLIME-ROS
 
 (add-to-list 'load-path "~/workspace/lisp/slime")
-;(add-to-list 'load-path "~/workspace/lisp/rosemacs-debs/roslisp_repl")
 (require 'slime-autoloads)
 (setq slime-backend "swank-loader.lisp")
-(add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
+(add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode 1)))
 
 (setq inferior-lisp-program "/usr/bin/sbcl --dynamic-space-size 4096")
 (setq slime-lisp-implementations nil)
 
-(setq slime-contribs '(slime-fancy slime-asdf slime-indentation slime-xref-browser
- 																	 slime-highlight-edits ;; slime-ros
-																	 ))
+(add-to-list 'load-path "~/workspace/lisp/rosemacs-debs/roslisp_repl")
+(add-to-list 'load-path "~/workspace/lisp/slime-hello-world")
+(setq slime-contribs '(slime-repl
+                       slime-autodoc
+                       ;; slime-c-p-c
+                       slime-editing-commands
+                       slime-fancy-inspector
+                       slime-fancy-trace
+                       slime-fuzzy
+                       slime-presentations
+                       slime-scratch
+                       slime-references
+                       slime-package-fu
+                       slime-fontifying-fu
+                       slime-trace-dialog
+                       ;;
+                       slime-asdf
+                       slime-indentation
+                       slime-xref-browser
+                       slime-highlight-edits
+                       slime-ros
+                       slime-hello-world))
 
 (setq slime-startup-animation nil)
 (setq slime-kill-without-query-p t)
@@ -302,47 +321,47 @@
 (setq slime-ros-completion-function (quote ido-completing-read))
 
 (when (file-exists-p "/home/gaya/workspace/lisp/hyperspec")
-	;; the last slash in the following is crucial
-	(setq common-lisp-hyperspec-root "file:/home/gaya/workspace/lisp/hyperspec/"))
+  ;; the last slash in the following is crucial
+  (setq common-lisp-hyperspec-root "file:/home/gaya/workspace/lisp/hyperspec/"))
 
 (eval-after-load 'slime
-	'(progn
-		 ;; Fix for M-, when using it with dired and A
-		 (define-key slime-mode-map (kbd "M-,")
-			 (lambda ()
-				 (interactive)
-				 (condition-case nil
-						 (slime-pop-find-definition-stack)
-					 (error (tags-loop-continue)))))
-		 (global-set-key "\C-cs" 'slime-selector)
-		 (define-key slime-mode-map "\r" 'newline-and-indent)
-		 (define-key slime-mode-map [tab]
-			 (lambda ()
-				 (interactive)
-				 (let ((yas-fallback-behavior nil))
-					 (unless (yas-expand)
-						 (slime-fuzzy-indent-and-complete-symbol)))))
-		 (define-key slime-mode-map (kbd "M-a")
-			 (lambda ()
-				 (interactive)
-				 (let ((ppss (syntax-ppss)))
-					 (if (nth 3 ppss)
-							 (goto-char (1+ (nth 8 ppss)))
-						 (progn
-							 (backward-up-list 1)
-							 (down-list 1))))))
-		 (define-key slime-mode-map (kbd "M-e")
-			 (lambda ()
-				 (interactive)
-				 (let ((ppss (syntax-ppss)))
-					 (if (nth 3 ppss)
-							 (progn
-								 (goto-char (nth 8 ppss))
-								 (forward-sexp 1)
-								 (backward-char 1))
-						 (progn
-							 (up-list 1)
-							 (backward-down-list 1))))))))
+  '(progn
+     ;; Fix for M-, when using it with dired and A
+     (define-key slime-mode-map (kbd "M-,")
+       (lambda ()
+         (interactive)
+         (condition-case nil
+             (slime-pop-find-definition-stack)
+           (error (tags-loop-continue)))))
+     (global-set-key "\C-cs" 'slime-selector)
+     (define-key slime-mode-map "\r" 'newline-and-indent)
+     (define-key slime-mode-map [tab]
+       (lambda ()
+         (interactive)
+         (let ((yas-fallback-behavior nil))
+           (unless (yas-expand)
+             (slime-fuzzy-indent-and-complete-symbol)))))
+     (define-key slime-mode-map (kbd "M-a")
+       (lambda ()
+         (interactive)
+         (let ((ppss (syntax-ppss)))
+           (if (nth 3 ppss)
+               (goto-char (1+ (nth 8 ppss)))
+             (progn
+               (backward-up-list 1)
+               (down-list 1))))))
+     (define-key slime-mode-map (kbd "M-e")
+       (lambda ()
+         (interactive)
+         (let ((ppss (syntax-ppss)))
+           (if (nth 3 ppss)
+               (progn
+                 (goto-char (nth 8 ppss))
+                 (forward-sexp 1)
+                 (backward-char 1))
+             (progn
+               (up-list 1)
+               (backward-down-list 1))))))))
 
 ;;; [ and ] should be handled paranthesis-like in lisp files.
 (modify-syntax-entry ?\[ "(]  " lisp-mode-syntax-table)
@@ -351,7 +370,6 @@
 ;;; Global key bindings
 (global-set-key "\C-cl" 'slime)
 (global-set-key "\C-cf"
-								'(lambda ()
-									 (interactive)
-									 (slime-quit-lisp)))
-
+                '(lambda ()
+                   (interactive)
+                   (slime-quit-lisp)))
