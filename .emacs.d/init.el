@@ -285,8 +285,8 @@
 (setq inferior-lisp-program "/usr/bin/sbcl --dynamic-space-size 4096")
 (setq slime-lisp-implementations nil)
 
-(setq slime-contribs '(slime-fancy slime-asdf slime-indentation slime-xref-browser
- 																	 slime-highlight-edits slime-ros))
+(slime-setup '(slime-fancy slime-asdf slime-indentation slime-xref-browser
+													 slime-highlight-edits slime-ros))
 
 (setq slime-startup-animation nil)
 (setq slime-kill-without-query-p t)
