@@ -277,14 +277,17 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;; SLIME and SLIME-ROS
 
 (add-to-list 'load-path "~/workspace/lisp/slime")
+;(add-to-list 'load-path "~/workspace/lisp/rosemacs-debs/roslisp_repl")
 (require 'slime-autoloads)
-(add-hook 'lisp-mode-hook (lambda () (slime-mode t)))
+(setq slime-backend "swank-loader.lisp")
 (add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode t)))
 
 (setq inferior-lisp-program "/usr/bin/sbcl --dynamic-space-size 4096")
 (setq slime-lisp-implementations nil)
 
-(setq slime-backend "swank-loader.lisp")
+(setq slime-contribs '(slime-fancy slime-asdf slime-indentation slime-xref-browser
+ 																	 slime-highlight-edits slime-ros))
+
 (setq slime-startup-animation nil)
 (setq slime-kill-without-query-p t)
 (setq slime-repl-history-file "~/.emacs.d/.slime-history.eld")
@@ -296,10 +299,6 @@
 (when (file-exists-p "/home/gaya/workspace/lisp/hyperspec")
 	;; the last slash in the following is crucial
 	(setq common-lisp-hyperspec-root "file:/home/gaya/workspace/lisp/hyperspec/"))
-
-(add-to-list 'load-path "~/workspace/lisp/rosemacs-debs")
-(slime-setup '(slime-fancy slime-asdf slime-indentation slime-xref-browser
-													 slime-highlight-edits slime-ros))
 
 (eval-after-load 'slime
 	'(progn
