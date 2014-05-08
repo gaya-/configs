@@ -1,5 +1,6 @@
 
 ;;; -*- mode: Emacs-Lisp -*-
+;;; Emacs version: 24.4
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Appearance and Editing ;;;;;;;;;;;;;;;;;;;;;;
@@ -31,10 +32,12 @@
 ;;; (menu-bar-mode -1)
 (tool-bar-mode -1)
 
-;;; Highlight and overwrite selected regions
-(pc-selection-mode t)
-(setq pc-select-meta-moves-sexps t)
-(setq pc-select-selection-keys-only t)
+;;; Highlight and overwrite selected regions (CUA mode)
+(cua-mode 1)
+(setq cua-enable-cua-keys nil)
+(setq cua-enable-modeline-indications t)
+(setq cua-remap-control-v nil)
+(setq cua-remap-control-z nil)
 
 ;;; Enable editing in columns: C-x C-n (enable) and C-u C-x C-n (disable)
 (put 'set-goal-column 'disabled nil)
@@ -243,6 +246,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; ROS specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+(add-to-list 'load-path "~/workspace/lisp/rosemacs-debs/rosemacs")
 (require 'rosemacs)
 (invoke-rosemacs)
 
@@ -286,7 +290,8 @@
 (setq slime-lisp-implementations nil)
 
 (setq slime-contribs '(slime-fancy slime-asdf slime-indentation slime-xref-browser
- 																	 slime-highlight-edits slime-ros))
+ 																	 slime-highlight-edits ;; slime-ros
+																	 ))
 
 (setq slime-startup-animation nil)
 (setq slime-kill-without-query-p t)
@@ -349,3 +354,4 @@
 								'(lambda ()
 									 (interactive)
 									 (slime-quit-lisp)))
+
