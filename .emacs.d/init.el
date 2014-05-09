@@ -53,6 +53,7 @@
 (autoload 'xrdb-mode "xrdb-mode" "Mode for editing X resource files" t)
 (autoload 'yaml-mode "yaml-mode" "Mode for editing YAML files" t)
 (autoload 'rnc-mode "rnc-mode" "Relax NG editing mode (XML related)" t)
+(autoload 'cmake-mode "cmake-mode" "CMake related files editing mode" t)
 (setq auto-mode-alist
       (append '(("\\.C$"       . c++-mode)
                 ("\\.cc$"      . c++-mode)
@@ -247,7 +248,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; ROS specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'load-path "~/workspace/lisp/rosemacs-debs/rosemacs")
+(add-to-list 'load-path "~/workspace/catkin/src/ros_emacs_extensions/rosemacs")
 (require 'rosemacs)
 (invoke-rosemacs)
 
