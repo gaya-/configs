@@ -1,8 +1,3 @@
 
 ;;; sbcl sources
 (sb-ext:set-sbcl-source-location "~/workspace/lisp/sbcl/")
-
-;;; swank
-;; (make-package :swank-loader)
-;; (defparameter swank-loader::*source-directory* #p"/home/gaya/workspace/slime-hello-world/")
-;; (load "/usr/share/common-lisp/source/slime/swank-loader.lisp")
