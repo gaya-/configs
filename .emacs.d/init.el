@@ -290,8 +290,7 @@
 (setq inferior-lisp-program "/usr/bin/sbcl --dynamic-space-size 4096")
 (setq slime-lisp-implementations nil)
 
-(add-to-list 'load-path "~/workspace/lisp/rosemacs-debs/roslisp_repl")
-(add-to-list 'load-path "~/workspace/lisp/slime-hello-world")
+(add-to-list 'load-path "~/workspace/catkin/src/ros_emacs_extensions/slime_ros")
 (setq slime-contribs '(slime-repl
                        slime-autodoc
                        ;; slime-c-p-c
@@ -310,8 +309,7 @@
                        slime-indentation
                        slime-xref-browser
                        slime-highlight-edits
-                       slime-ros
-                       slime-hello-world))
+                       slime-ros))
 
 (setq slime-startup-animation nil)
 (setq slime-kill-without-query-p t)
