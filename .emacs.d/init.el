@@ -12,7 +12,8 @@
 (setq initial-major-mode 'text-mode)
 
 ;;; Set the mode for buffers with unknown mode to text
-(setq default-major-mode 'text-mode)
+;;; previously DEFAULT-MAJOR-MODE in emacs23
+(setq major-mode 'text-mode)
 
 ;;; Highlight the opening / closing brackets
 (show-paren-mode t)
@@ -29,11 +30,12 @@
 (setq-default indent-tabs-mode nil)
 
 ;;; No menu bar and toolbar on the top of emacs
-;;; I kind of like it right now, so it will stay.
+;;; I kind of like the menu bar right now, so it will stay.
 ;;; (menu-bar-mode -1)
 (tool-bar-mode -1)
 
 ;;; Highlight and overwrite selected regions (CUA mode)
+;;; new in emacs24
 (cua-mode 1)
 (setq cua-enable-cua-keys nil)
 (setq cua-enable-modeline-indications t)
@@ -200,9 +202,9 @@
 ;;; Whitespace highlights lines longer than 80 characters and similar.
 ;;; It is included in emacs23 or later.
 (require 'whitespace)
-(setq-default whitespace-style '(face trailing lines-tail indentation::space))
-(setq-default whitespace-line-column 80)
-(setq-default whitespace-indentation nil)
+(setq whitespace-style '(face trailing lines-tail indentation::space))
+(setq whitespace-line-column 80)
+(setq whitespace-indentation nil)
 (global-whitespace-mode 1)
 (set-face-attribute 'whitespace-line nil
                     :foreground "#880"
