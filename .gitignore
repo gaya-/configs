@@ -2,4 +2,5 @@
 .emacs.d/auto-save-list/
 .emacs.d/emacs-file-backups/
 .emacs.d/.slime-history.eld
+.emacs.d/session.*
 *.elc
