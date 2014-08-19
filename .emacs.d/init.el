@@ -248,16 +248,6 @@
 (define-key global-map [S-down-mouse-1] 'rm-mouse-drag-region)
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;; ROS specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(add-to-list 'load-path "~/workspace/catkin/src/ros_emacs_extensions/rosemacs")
-(require 'rosemacs)
-(invoke-rosemacs)
-
-(global-set-key "\C-x\C-r" ros-keymap)
-(setq ros-completion-function (quote ido-completing-read))
-
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;; Lisp specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;;; Adjust the indentation for MAKE-INSTANCE
@@ -282,9 +272,34 @@
      (define-key paredit-mode-map (kbd "<C-right>") 'forward-word-nomark)))
 
 
+;;;;;;;;;;;;;;;;;;;;;;;;;; ROS specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+(let ((base "/home/gaya/workspace/catkin/install/share/emacs/site-lisp"))
+  (cond ((file-directory-p base)
+         (add-to-list 'load-path base)
+         (dolist (f (directory-files base))
+           (let ((name (concat base "/" f)))
+             (when (and (file-directory-p name)
+                        (not (equal f ".."))
+                        (not (equal f ".")))
+               (add-to-list 'load-path name)))))
+        (t
+         (message-box "Can't find the .el files!
+Did you forget to install the ros_emacs_extensions packages?
+If so, run \"catkin_make install\" in your catkin workspace
+or, if you prefer to only install the specific package,
+run \"catkin_make install --pkg PACKAGE\" where PACKAGE is
+rosemacs, slime, slime_ros and roslisp_repl."))))
+
+(require 'rosemacs)
+
+(invoke-rosemacs)
+(global-set-key "\C-x\C-r" ros-keymap)
+(setq ros-completion-function (quote ido-completing-read))
+
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;; SLIME and SLIME-ROS
 
-(add-to-list 'load-path "~/workspace/lisp/slime")
 (require 'slime-autoloads)
 (setq slime-backend "swank-loader.lisp")
 (add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode 1)))
@@ -292,7 +307,6 @@
 (setq inferior-lisp-program "/usr/bin/sbcl --dynamic-space-size 4096")
 (setq slime-lisp-implementations nil)
 
-(add-to-list 'load-path "~/workspace/catkin/src/ros_emacs_extensions/slime_ros")
 (setq slime-contribs '(slime-repl
                        slime-autodoc
                        ;; slime-c-p-c
