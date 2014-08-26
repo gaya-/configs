@@ -274,7 +274,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; ROS specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(let ((default-directory "/home/gaya/workspace/catkin/install/share/emacs/site-lisp"))
+(let ((default-directory "~/workspace/catkin/install/share/emacs/site-lisp"))
   (cond ((file-directory-p default-directory)
          (setq load-path
                (append
