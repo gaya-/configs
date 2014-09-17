@@ -94,12 +94,12 @@
 ;; (setq rnc-enable-flymake t)
 
 ;;; Spell checker
-;; (dolist (hook '(text-mode-hook))
-;;   (add-hook hook (lambda () (flyspell-mode 1))))
-;; (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
-;;   (add-hook hook (lambda () (flyspell-mode -1))))
-;; (dolist (hook '(lisp-mode-hook c++-mode-hook python-mode-hook))
-;;   (add-hook hook (lambda () flyspell-prog-mode)))
+(dolist (hook '(text-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode 1))))
+(dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+  (add-hook hook (lambda () (flyspell-mode -1))))
+(dolist (hook '(lisp-mode-hook c++-mode-hook python-mode-hook))
+  (add-hook hook (lambda () flyspell-prog-mode)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -196,7 +196,7 @@
 
 ;;; Yasnippets: templates for standard structures. E.g. bsd TAB.
 (require 'yasnippet)
-(setq yas-snippet-dirs (quote ("~/.emacs.d/snippets")))
+(add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
 (yas-global-mode 1)
 
 ;;; Whitespace highlights lines longer than 80 characters and similar.
@@ -272,55 +272,10 @@
      (define-key paredit-mode-map (kbd "<C-right>") 'forward-word-nomark)))
 
 
-;;;;;;;;;;;;;;;;;;;;;;;;;; ROS specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;;;;;;;;;;;;;;;;;;;;;;;;; ROS and SLIME specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(let ((default-directory "~/workspace/catkin/install/share/emacs/site-lisp"))
-  (cond ((file-directory-p default-directory)
-         (setq load-path
-               (append
-                (let ((load-path (copy-sequence load-path))) ;; Shadow
-                  (append
-                   (copy-sequence (normal-top-level-add-to-load-path '(".")))
-                   (normal-top-level-add-subdirs-to-load-path)))
-               load-path)))
-        (t
-         (message-box "Can't find the .el files!"))))
-
-(require 'rosemacs)
-
-(invoke-rosemacs)
-(global-set-key "\C-x\C-r" ros-keymap)
-(setq ros-completion-function (quote ido-completing-read))
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;; SLIME and SLIME-ROS
-
-(require 'slime-autoloads)
-(setq slime-backend "swank-loader.lisp")
-(add-hook 'inferior-lisp-mode-hook (lambda () (inferior-slime-mode 1)))
-
-(setq inferior-lisp-program "/usr/bin/sbcl --dynamic-space-size 4096")
-(setq slime-lisp-implementations nil)
-
-(setq slime-contribs '(slime-repl
-                       slime-autodoc
-                       ;; slime-c-p-c
-                       slime-editing-commands
-                       slime-fancy-inspector
-                       slime-fancy-trace
-                       slime-fuzzy
-                       slime-presentations
-                       slime-scratch
-                       slime-references
-                       slime-package-fu
-                       slime-fontifying-fu
-                       slime-trace-dialog
-                       ;;
-                       slime-asdf
-                       slime-indentation
-                       slime-xref-browser
-                       slime-highlight-edits
-                       slime-ros))
+(add-to-list 'load-path "~/workspace/catkin/install/share/emacs/site-lisp/")
+(require 'slime-config)
 
 (setq slime-startup-animation nil)
 (setq slime-kill-without-query-p t)
