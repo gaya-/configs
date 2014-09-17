@@ -4,3 +4,4 @@
 .emacs.d/.slime-history.eld
 .emacs.d/session.*
 *.elc
+build/
