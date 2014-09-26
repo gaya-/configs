@@ -274,8 +274,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; ROS and SLIME specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'load-path "~/workspace/catkin/install/share/emacs/site-lisp/")
-(require 'slime-config)
+(require 'slime-config "~/workspace/catkin/src/ros_emacs_utils/slime_ros/slime-config.el")
 
 (setq slime-startup-animation nil)
 (setq slime-kill-without-query-p t)
