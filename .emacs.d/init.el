@@ -99,7 +99,7 @@
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   (add-hook hook (lambda () (flyspell-mode -1))))
 (dolist (hook '(lisp-mode-hook c++-mode-hook python-mode-hook))
-  (add-hook hook (lambda () flyspell-prog-mode)))
+  (add-hook hook (lambda () (flyspell-prog-mode))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -274,8 +274,7 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; ROS and SLIME specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'load-path "~/workspace/catkin/install/share/emacs/site-lisp/")
-(require 'slime-config)
+(require 'slime-config "~/workspace/catkin/install/share/slime_ros/slime-config.el")
 
 (setq slime-startup-animation nil)
 (setq slime-kill-without-query-p t)
