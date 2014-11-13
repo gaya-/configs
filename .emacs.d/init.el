@@ -268,14 +268,17 @@
   '(progn
      (define-key paredit-mode-map (kbd "<M-left>") 'paredit-forward-barf-sexp)
      (define-key paredit-mode-map (kbd "<M-right>") 'paredit-forward-slurp-sexp)
-     (define-key paredit-mode-map (kbd "<C-left>") 'backward-word-nomark)
-     (define-key paredit-mode-map (kbd "<C-right>") 'forward-word-nomark)))
+     (define-key paredit-mode-map (kbd "<C-left>") 'backward-word)
+     (define-key paredit-mode-map (kbd "<C-right>") 'forward-word)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; ROS and SLIME specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'slime-config "~/workspace/catkin/install/share/slime_ros/slime-config.el")
 
+(setq inferior-lisp-program "/usr/bin/sbcl --dynamic-space-size 4096")
+
+(setq ros-completion-function (quote ido-completing-read))
 (setq slime-startup-animation nil)
 (setq slime-kill-without-query-p t)
 (setq slime-repl-history-file "~/.emacs.d/.slime-history.eld")
