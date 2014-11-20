@@ -286,6 +286,7 @@
 (setq slime-repl-only-save-lisp-buffers nil)
 (setq slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
 (setq slime-ros-completion-function (quote ido-completing-read))
+(add-hook 'slime-mode-hook (lambda () (slime-highlight-edits-mode 0)))
 
 (when (file-exists-p "/home/gaya/workspace/lisp/hyperspec")
   ;; the last slash in the following is crucial
@@ -301,6 +302,8 @@
              (slime-pop-find-definition-stack)
            (error (tags-loop-continue)))))
      (global-set-key "\C-cs" 'slime-selector)
+     (define-key slime-repl-mode-map (kbd "C-M-<backspace>")
+       'slime-repl-delete-current-input)
      (define-key slime-mode-map "\r" 'newline-and-indent)
      (define-key slime-mode-map [tab]
        (lambda ()
