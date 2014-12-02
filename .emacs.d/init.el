@@ -99,7 +99,7 @@
 (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
   (add-hook hook (lambda () (flyspell-mode -1))))
 (dolist (hook '(lisp-mode-hook c++-mode-hook python-mode-hook))
-  (add-hook hook (lambda () flyspell-prog-mode)))
+  (add-hook hook (lambda () (flyspell-prog-mode))))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Key Bindings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -268,14 +268,17 @@
   '(progn
      (define-key paredit-mode-map (kbd "<M-left>") 'paredit-forward-barf-sexp)
      (define-key paredit-mode-map (kbd "<M-right>") 'paredit-forward-slurp-sexp)
-     (define-key paredit-mode-map (kbd "<C-left>") 'backward-word-nomark)
-     (define-key paredit-mode-map (kbd "<C-right>") 'forward-word-nomark)))
+     (define-key paredit-mode-map (kbd "<C-left>") 'backward-word)
+     (define-key paredit-mode-map (kbd "<C-right>") 'forward-word)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; ROS and SLIME specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'slime-config "~/workspace/catkin/src/ros_emacs_utils/slime_ros/slime-config.el")
+(require 'slime-config "/opt/ros/indigo/share/slime_ros/slime-config.el")
 
+(setq inferior-lisp-program "/usr/bin/sbcl --dynamic-space-size 4096")
+
+(setq ros-completion-function (quote ido-completing-read))
 (setq slime-startup-animation nil)
 (setq slime-kill-without-query-p t)
 (setq slime-repl-history-file "~/.emacs.d/.slime-history.eld")
@@ -283,6 +286,7 @@
 (setq slime-repl-only-save-lisp-buffers nil)
 (setq slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
 (setq slime-ros-completion-function (quote ido-completing-read))
+(add-hook 'slime-mode-hook (lambda () (slime-highlight-edits-mode 0)))
 
 (when (file-exists-p "/home/gaya/workspace/lisp/hyperspec")
   ;; the last slash in the following is crucial
@@ -298,6 +302,8 @@
              (slime-pop-find-definition-stack)
            (error (tags-loop-continue)))))
      (global-set-key "\C-cs" 'slime-selector)
+     (define-key slime-repl-mode-map (kbd "C-M-<backspace>")
+       'slime-repl-delete-current-input)
      (define-key slime-mode-map "\r" 'newline-and-indent)
      (define-key slime-mode-map [tab]
        (lambda ()
