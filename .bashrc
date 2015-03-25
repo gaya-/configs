@@ -123,7 +123,7 @@ RED="\[\033[0;31m\]"
 export PS1="[\u@\h \w]$RED\$(parse_git_branch)$COLOR_NONE\$ "
 
 # ROS
-source $HOME/workspace/rosbuild/setup.bash
+source $HOME/workspace/ros_top_ws/devel/setup.bash
 alias robot="export ROS_MASTER_URI=http://pr2:11311 && export ROS_IP=192.168.100.189"
 
 # sudo apt-get install trash-cli
