@@ -274,7 +274,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; ROS and SLIME specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(require 'slime-config "/opt/ros/indigo/share/slime_ros/slime-config.el")
+;; (require 'slime-config "/opt/ros/indigo/share/slime_ros/slime-config.el")
+(require 'slime-config "/home/gaya/workspace/ros_lisp/install/share/slime_ros/slime-config.el")
 
 (setq inferior-lisp-program "/usr/bin/sbcl --dynamic-space-size 4096")
 
@@ -284,13 +285,12 @@
 (setq slime-repl-history-file "~/.emacs.d/.slime-history.eld")
 (setq slime-repl-history-size 2000)
 (setq slime-repl-only-save-lisp-buffers nil)
-(setq slime-complete-symbol-function (quote slime-fuzzy-complete-symbol))
 (setq slime-ros-completion-function (quote ido-completing-read))
 (add-hook 'slime-mode-hook (lambda () (slime-highlight-edits-mode 0)))
 
-(when (file-exists-p "/home/gaya/workspace/lisp/hyperspec")
+(when (file-exists-p "/home/gaya/workspace/ros_lisp/hyperspec")
   ;; the last slash in the following is crucial
-  (setq common-lisp-hyperspec-root "file:/home/gaya/workspace/lisp/hyperspec/"))
+  (setq common-lisp-hyperspec-root "file:/home/gaya/workspace/ros_lisp/hyperspec/"))
 
 (eval-after-load 'slime
   '(progn
@@ -343,3 +343,4 @@
                 '(lambda ()
                    (interactive)
                    (slime-quit-lisp)))
+(put 'upcase-region 'disabled nil)
