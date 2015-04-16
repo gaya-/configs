@@ -124,7 +124,8 @@ export PS1="[\u@\h \w]$RED\$(parse_git_branch)$COLOR_NONE\$ "
 
 # ROS
 source $HOME/workspace/ros_top_ws/devel/setup.bash
-alias robot="export ROS_MASTER_URI=http://pr2:11311 && export ROS_IP=192.168.100.209"
+MY_IP=$(hostname -I)
+alias robot="export ROS_MASTER_URI=http://pr2:11311 && export ROS_IP=$MY_IP"
 
 # sudo apt-get install trash-cli
 alias rm="trash-put"
