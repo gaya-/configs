@@ -123,17 +123,24 @@ RED="\[\033[0;31m\]"
 export PS1="[\u@\h \w]$RED\$(parse_git_branch)$COLOR_NONE\$ "
 
 # ROS
-source $HOME/workspace/rosbuild/setup.bash
-alias robot="export ROS_MASTER_URI=http://pr2:11311 && export ROS_IP=192.168.100.189"
+source $HOME/workspace/ros_top_ws/devel/setup.bash
+alias robot="export ROS_MASTER_URI=http://pr2:11311 && export ROS_IP=192.168.100.209"
 
 # sudo apt-get install trash-cli
 alias rm="trash-put"
 
 # java
 export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+export JAVA_INCLUDE=${JAVA_HOME}/include
 
 # latex
 DOCS_PATH=$HOME/workspace/docs
 export TEXMFHOME=$HOME/.texmf:$DOCS_PATH/texmf:$DOCS_PATH/texmf/tex/latex/ias/
 export TEXMFHOME="${DOCS_PATH}/texmf:${TEXMFHOME}:${HOME}/.texmf"
 export BIBINPUTS="${BIBINPUTS}:${DOCS_PATH}/bib:${DOCS_PATH}/bib/fromtum:${DOCS_PATH}/bib/external"
+
+# robosherlock
+export APR_HOME=/usr
+export ICU_HOME=/usr
+export XERCES_HOME=/usr
+
