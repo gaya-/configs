@@ -277,8 +277,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; ROS and SLIME specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (require 'slime-config "/opt/ros/indigo/share/slime_ros/slime-config.el")
-(require 'slime-config "/home/gaya/workspace/ros_lisp/install/share/slime_ros/slime-config.el")
+(require 'slime-config "/opt/ros/indigo/share/slime_ros/slime-config.el")
+;; (require 'slime-config "/home/gaya/workspace/ros_lisp/install/share/slime_ros/slime-config.el")
 
 (setq inferior-lisp-program "/usr/bin/sbcl --dynamic-space-size 4096")
 
