@@ -213,6 +213,9 @@
 (set-face-attribute 'whitespace-trailing nil
                     :background "#FDD")
 
+;;; EWW browser
+(require 'eww)
+
 ;;; Autocomplete in the minibuffer for filenames etc.
 (require 'ido)
 (ido-mode 'both)
@@ -288,9 +291,9 @@
 (setq slime-ros-completion-function (quote ido-completing-read))
 (add-hook 'slime-mode-hook (lambda () (slime-highlight-edits-mode 0)))
 
-(when (file-exists-p "/home/gaya/workspace/ros_lisp/hyperspec")
+(when (file-exists-p "/home/gaya/workspace/ros_lisp/src/HyperSpec-7-0/HyperSpec")
   ;; the last slash in the following is crucial
-  (setq common-lisp-hyperspec-root "file:/home/gaya/workspace/ros_lisp/hyperspec/"))
+  (setq common-lisp-hyperspec-root "file:/home/gaya/workspace/ros_lisp/src/HyperSpec-7-0/HyperSpec/"))
 
 (eval-after-load 'slime
   '(progn
