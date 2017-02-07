@@ -146,5 +146,7 @@ export APR_HOME=/usr
 export ICU_HOME=/usr
 export XERCES_HOME=/usr
 
+export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
+
 # gazebo
 export GAZEBO_MODEL_PATH=$HOME/workspace/ros_gazebo/src/
