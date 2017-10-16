@@ -43,7 +43,7 @@ esac
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
 # should be on the output of commands, not on the prompt
-#force_color_prompt=yes
+force_color_prompt=yes
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
@@ -56,12 +56,12 @@ if [ -n "$force_color_prompt" ]; then
     fi
 fi
 
-if [ "$color_prompt" = yes ]; then
-    PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-else
-    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
-fi
-unset color_prompt force_color_prompt
+# if [ "$color_prompt" = yes ]; then
+#     PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+# else
+#     PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+# fi
+# unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -115,12 +115,21 @@ fi
 
 # displaying GIT branch
 function parse_git_branch {
-git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/(\1)/'
 }
-COLOR_NONE="\[\e[0m\]"
-GREEN="\[\033[0;32m\]"
+WHITE="\[\033[00m\]"
+GREEN="\[\033[01;32m\]"
 RED="\[\033[0;31m\]"
-export PS1="[\u@\h \w]$RED\$(parse_git_branch)$COLOR_NONE\$ "
+BLUE="\[\033[01;34m\]"
+if [ "$color_prompt" = yes ]; then
+    PS1="${debian_chroot:+($debian_chroot)}$GREEN\u@\h$WHITE:$BLUE\w$RED\$(parse_git_branch)$WHITE\$ "
+else
+    PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
+fi
+unset color_prompt force_color_prompt
+
+# sshing to office pc
+alias desk="ssh gaya@192.168.100.160"
 
 # generating changelog using GIT
 alias changelog="git log --no-merges --pretty=format:\"%ai %B\" --reverse 0.2.1.. >> CHANGELOG.md"
@@ -149,6 +158,7 @@ export BIBINPUTS="${BIBINPUTS}:${DOCS_PATH}/bib:${DOCS_PATH}/bib/fromtum:${DOCS_
 export APR_HOME=/usr
 export ICU_HOME=/usr
 export XERCES_HOME=/usr
+export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
 
 # gazebo
 export GAZEBO_MODEL_PATH=$HOME/workspace/ros_gazebo/src/
