@@ -122,8 +122,11 @@ GREEN="\[\033[0;32m\]"
 RED="\[\033[0;31m\]"
 export PS1="[\u@\h \w]$RED\$(parse_git_branch)$COLOR_NONE\$ "
 
+# generating changelog using GIT
+alias changelog="git log --no-merges --pretty=format:\"%ai %B\" --reverse 0.2.1.. >> CHANGELOG.md"
+
 # ROS
-source $HOME/workspace/ros_sherpa/devel/setup.bash
+# source $HOME/workspace/ros_lisp/devel/setup.bash
 MY_IP=$(hostname -I)
 export ROS_IP="$(echo -e "$MY_IP" | tr -d '[:space:]')"
 alias robot="export ROS_MASTER_URI=http://pr2:11311"
@@ -132,11 +135,12 @@ alias robot="export ROS_MASTER_URI=http://pr2:11311"
 alias rm="trash-put"
 
 # java
-export JAVA_HOME=/usr/lib/jvm/java-7-openjdk-amd64
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 export JAVA_INCLUDE=${JAVA_HOME}/include
+export LD_LIBRARY_PATH=${JAVA_HOME}/jre/lib/amd64:${JAVA_HOME}/jre/lib/amd64/server:$LD_LIBRARY_PATH
 
 # latex
-DOCS_PATH=$HOME/workspace/docs
+DOCS_PATH=/media/data/docs
 export TEXMFHOME=$HOME/.texmf:$DOCS_PATH/texmf:$DOCS_PATH/texmf/tex/latex/ias/
 export TEXMFHOME="${DOCS_PATH}/texmf:${TEXMFHOME}:${HOME}/.texmf"
 export BIBINPUTS="${BIBINPUTS}:${DOCS_PATH}/bib:${DOCS_PATH}/bib/fromtum:${DOCS_PATH}/bib/external"
