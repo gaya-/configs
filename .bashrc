@@ -37,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color) color_prompt=yes;;
+    xterm-color|*-256color) color_prompt=yes;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -83,6 +83,9 @@ if [ -x /usr/bin/dircolors ]; then
     alias fgrep='fgrep --color=auto'
     alias egrep='egrep --color=auto'
 fi
+
+# colored GCC warnings and errors
+#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -135,7 +138,7 @@ alias desk="ssh gaya@192.168.100.160"
 alias changelog="git log --no-merges --pretty=format:\"%ai %B\" --reverse 0.2.1.. >> CHANGELOG.md"
 
 # ROS
-# source $HOME/workspace/ros_lisp/devel/setup.bash
+source $HOME/workspace/ros_cram/devel/setup.bash
 MY_IP=$(hostname -I)
 export ROS_IP="$(echo -e "$MY_IP" | tr -d '[:space:]')"
 alias robot="export ROS_MASTER_URI=http://pr2:11311"
@@ -155,10 +158,10 @@ export TEXMFHOME="${DOCS_PATH}/texmf:${TEXMFHOME}:${HOME}/.texmf"
 export BIBINPUTS="${BIBINPUTS}:${DOCS_PATH}/bib:${DOCS_PATH}/bib/fromtum:${DOCS_PATH}/bib/external"
 
 # robosherlock
-export APR_HOME=/usr
-export ICU_HOME=/usr
-export XERCES_HOME=/usr
-export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
+# export APR_HOME=/usr
+# export ICU_HOME=/usr
+# export XERCES_HOME=/usr
+# export LD_LIBRARY_PATH=/usr/local/lib:${LD_LIBRARY_PATH}
 
 # gazebo
-export GAZEBO_MODEL_PATH=$HOME/workspace/ros_gazebo/src/
+# export GAZEBO_MODEL_PATH=$HOME/workspace/ros_gazebo/src/
