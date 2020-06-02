@@ -2,6 +2,13 @@
 ;;; -*- mode: Emacs-Lisp -*-
 ;;; Emacs version: 24.4
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+(package-initialize)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;; Appearance and Editing ;;;;;;;;;;;;;;;;;;;;;;
 
@@ -24,6 +31,9 @@
 
 ;;; Display the column in the status (mode part)
 (column-number-mode t)
+
+;;; Display line numbers on the left side
+(global-linum-mode t)
 
 ;;; Don't use tabs for whitespace while indenting
 (setq indent-tabs-mode nil)
@@ -137,7 +147,9 @@
 (setq interprogram-paste-function 'x-cut-buffer-or-selection-value)
 
 ;;; Start emacs server for emacsclient
-(server-start)
+(require 'server)
+(unless (server-running-p)
+  (server-start))
 
 ;;; Disable recursive minibuffers
 (setq minibuffer-max-depth nil)
@@ -195,9 +207,9 @@
 (add-to-list 'load-path "~/.emacs.d/packages")
 
 ;;; Yasnippets: templates for standard structures. E.g. bsd TAB.
-(require 'yasnippet)
-(add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
-(yas-global-mode 1)
+;; (require 'yasnippet)
+;; (add-to-list 'yas-snippet-dirs "~/.emacs.d/snippets")
+;; (yas-global-mode 1)
 
 ;;; Whitespace highlights lines longer than 80 characters and similar.
 ;;; It is included in emacs23 or later.
@@ -277,8 +289,8 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;; ROS and SLIME specific ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;; (require 'slime-config "/opt/ros/indigo/share/slime_ros/slime-config.el")
- (require 'slime-config "/home/gaya/workspace/ros_lisp/install/share/slime_ros/slime-config.el")
+(require 'slime-config "/opt/ros/melodic/share/slime_ros/slime-config.el")
+;; (require 'slime-config "/home/gaya/workspace/ros_lisp/install/share/slime_ros/slime-config.el")
 
 (setq inferior-lisp-program "/usr/bin/sbcl --dynamic-space-size 4096")
 
@@ -347,3 +359,52 @@
                    (interactive)
                    (slime-quit-lisp)))
 (put 'upcase-region 'disabled nil)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;; PYTHON STUFF ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; sudo apt install elpa-elpy
+(require 'package)
+(add-to-list 'package-archives
+             '("melpa-stable" . "https://stable.melpa.org/packages/"))
+;; M-x package-list-packages
+;; M-x package-install RET elpy RET
+;; M-x package-install RET use-package RET
+;; $ sudo pip install jedi
+;; $ sudo pip install flake8
+;; $ sudo pip install autopep8
+;; M-x elpy-config
+(when (require 'elpy nil 'noerror)
+  (require 'use-package)
+  (use-package elpy
+               :ensure t
+               :defer t
+               :init
+               (advice-add 'python-mode :before 'elpy-enable))
+  (setq python-shell-interpreter "ipython"
+        python-shell-interpreter-args "-i --simple-prompt"))
+
+;; Optionally, consider adding a flycheck spell checker instead of flymake
+;; M-x package-install RET flycheck RET
+;; (when (require 'flycheck nil 'noerror)
+;;   (setq elpy-modules (delq 'elpy-module-flymake elpy-modules))
+;;   (add-hook 'elpy-mode-hook 'flycheck-mode))
+
+;; Consider using Python virtual environment
+;; M-x pyvenv-activate    | M-x pyvenv-deactivate
+
+;; Consider using autopep8 for editing files on save
+;; M-x package install RET py-autopep8
+;; (require 'py-autopep8)
+;; (add-hook 'elpy-mode-hook 'py-autopep8-enabe-on-save)
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages (quote (markdown-mode use-package graphviz-dot-mode elpy))))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ )
