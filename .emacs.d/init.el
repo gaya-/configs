@@ -347,3 +347,25 @@
                    (interactive)
                    (slime-quit-lisp)))
 (put 'upcase-region 'disabled nil)
+(custom-set-variables
+ '(jabber-account-list (quote (("kazhoyan@uni-bremen.de/emacs-jabber"))))
+ '(jabber-alert-info-message-hooks
+   (quote
+    (jabber-info-xmessage jabber-info-festival jabber-info-echo jabber-info-switch jabber-info-display)))
+ '(jabber-alert-message-hooks
+   (quote
+    (jabber-message-xmessage jabber-message-festival jabber-message-beep jabber-message-echo jabber-message-switch jabber-message-display jabber-message-scroll)))
+ '(jabber-alert-muc-hooks
+   (quote
+    (jabber-muc-xmessage jabber-muc-festival jabber-muc-echo jabber-muc-switch jabber-muc-display jabber-muc-scroll)))
+ '(jabber-auto-reconnect t)
+ '(jabber-backlog-days 3000.0)
+ '(jabber-display-menu (quote maybe))
+ '(jabber-events-confirm-composing t)
+ '(jabber-message-alert-same-buffer nil)
+ '(jabber-muc-autojoin (quote ("ai@conference.uni-bremen.de")))
+ '(jabber-muc-default-nicknames (quote (("ai@conference.uni-bremen.de" . "gaya"))))
+ '(jabber-roster-show-title nil)
+ '(jabber-show-resources (quote always))
+ '(jabber-xmessage-timeout nil)
+ '(org-agenda-files (quote ("~/orgmode/test.org"))))
