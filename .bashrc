@@ -90,6 +90,23 @@ fi
 # colored GCC warnings and errors
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# some more ls aliases
+alias ll='ls -alF'
+alias la='ls -A'
+alias l='ls -CF'
+
 # some more ls aliases
 alias ll='ls -alF'
 alias la='ls -A'
@@ -135,7 +152,7 @@ fi
 unset color_prompt force_color_prompt
 
 # sshing to office pc
-alias desk="ssh gaya@192.168.100.160"
+alias desk="ssh gaya@192.168.101.188"
 
 # generating changelog using GIT
 alias changelog="git log --no-merges --pretty=format:\"%ai %B\" --reverse 0.2.1.. >> CHANGELOG.md"
@@ -156,8 +173,7 @@ export LD_LIBRARY_PATH=${JAVA_HOME}/jre/lib/amd64:${JAVA_HOME}/jre/lib/amd64/ser
 
 # latex
 DOCS_PATH=/media/data/docs
-export TEXMFHOME=$HOME/.texmf:$DOCS_PATH/texmf:$DOCS_PATH/texmf/tex/latex/ias/
-export TEXMFHOME="${DOCS_PATH}/texmf:${TEXMFHOME}:${HOME}/.texmf"
+export TEXMFHOME=${TEXMFHOME}:$HOME/.texmf:$DOCS_PATH/texmf:$DOCS_PATH/texmf/tex/latex/ias/:$HOME/workspace/gutachten
 export BIBINPUTS="${BIBINPUTS}:${DOCS_PATH}/bib:${DOCS_PATH}/bib/fromtum:${DOCS_PATH}/bib/external"
 
 # robosherlock
@@ -168,3 +184,6 @@ export BIBINPUTS="${BIBINPUTS}:${DOCS_PATH}/bib:${DOCS_PATH}/bib/fromtum:${DOCS_
 
 # gazebo
 # export GAZEBO_MODEL_PATH=$HOME/workspace/ros_gazebo/src/
+
+# python stuff
+alias py="bash ~/workspace/python/pycharm-2018.1.4/bin/pycharm.sh"
