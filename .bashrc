@@ -72,40 +72,20 @@ xterm*|rxvt*)
     ;;
 esac
 
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+    #alias dir='dir --color=auto'
+    #alias vdir='vdir --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# colored GCC warnings and errors
-#export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
 
 # some more ls aliases
 alias ll='ls -alF'
@@ -152,13 +132,13 @@ fi
 unset color_prompt force_color_prompt
 
 # sshing to office pc
-alias desk="ssh gaya@192.168.101.188"
+# alias desk="ssh gaya@192.168.101.188"
 
 # generating changelog using GIT
 alias changelog="git log --no-merges --pretty=format:\"%ai %B\" --reverse 0.2.1.. >> CHANGELOG.md"
 
 # ROS
-source $HOME/workspace/ros_cram/devel/setup.bash
+source $HOME/workspace/ros/devel/setup.bash
 MY_IP=$(hostname -I)
 export ROS_IP="$(echo -e "$MY_IP" | tr -d '[:space:]')"
 alias robot="export ROS_MASTER_URI=http://pr2:11311"
@@ -167,12 +147,12 @@ alias robot="export ROS_MASTER_URI=http://pr2:11311"
 alias rm="trash-put"
 
 # java
-export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
-export JAVA_INCLUDE=${JAVA_HOME}/include
-export LD_LIBRARY_PATH=${JAVA_HOME}/jre/lib/amd64:${JAVA_HOME}/jre/lib/amd64/server:$LD_LIBRARY_PATH
+# export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
+# export JAVA_INCLUDE=${JAVA_HOME}/include
+# export LD_LIBRARY_PATH=${JAVA_HOME}/jre/lib/amd64:${JAVA_HOME}/jre/lib/amd64/server:$LD_LIBRARY_PATH
 
 # latex
-DOCS_PATH=/media/data/docs
+DOCS_PATH=$HOME/workspace/docs
 export TEXMFHOME=${TEXMFHOME}:$HOME/.texmf:$DOCS_PATH/texmf:$DOCS_PATH/texmf/tex/latex/ias/:$HOME/workspace/gutachten
 export BIBINPUTS="${BIBINPUTS}:${DOCS_PATH}/bib:${DOCS_PATH}/bib/fromtum:${DOCS_PATH}/bib/external"
 
@@ -186,4 +166,4 @@ export BIBINPUTS="${BIBINPUTS}:${DOCS_PATH}/bib:${DOCS_PATH}/bib/fromtum:${DOCS_
 # export GAZEBO_MODEL_PATH=$HOME/workspace/ros_gazebo/src/
 
 # python stuff
-alias py="bash ~/workspace/python/pycharm-2018.1.4/bin/pycharm.sh"
+# alias py="bash ~/workspace/python/pycharm-2018.1.4/bin/pycharm.sh"
